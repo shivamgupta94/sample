@@ -11,8 +11,7 @@
       
       <a class="navbar-brand">
         
-          <img src="assets/aarush_logo.png" height = "40px" width = "170px" >
-          
+          Tracking
       </a>  
 
     </div>
@@ -23,6 +22,9 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home",root_path %></li>
         <li><%= link_to "About us",about_path %></li>
+        <% if user_signed_in? %>
+        <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
+        <% end %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
