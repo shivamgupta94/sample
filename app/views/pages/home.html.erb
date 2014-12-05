@@ -2,16 +2,103 @@
 <h1><center>Welcome to Fleet Manager</center></h1>
 
 
-
-
 <% if user_signed_in? %>
-	<center>Hello User!</center>
+		<script type="text/javascript"
+	      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB62qZpLPkJOx3s-1qQqq4iUrH1p6Gx5Ow">
+	    </script>
+			    <script type="text/javascript">
+			    function initialize() 
+			    {
+			        var mapOptions = {center: { lat: 18.521034 , lng: 73.841470},zoom: 14};
+			        
+			        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+			        var marker;
+					function createMarker(coords, map, title)
+					{
+						marker = new google.maps.Marker
+						({
+							position: coords,
+							map: map,
+							title: title
+						});
+					}						
+
+					$('#myStateButton').on('click', function () {
+  
+  											
+  											{
+												createMarker(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
+
+												createMarker(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
+												createMarker(new google.maps.LatLng(18.509037, 73.843859),map,'Route 1 : Stop 2')
+												createMarker(new google.maps.LatLng(18.503675, 73.845168),map,'Route 1 : Stop 3')
+												createMarker(new google.maps.LatLng(18.502810, 73.850200),map,'Route 1 : Stop 4')
+												createMarker(new google.maps.LatLng(18.497418, 73.854395),map,'Route 1 : Stop 5')
+												createMarker(new google.maps.LatLng(18.494121, 73.857991),map,'Route 1 : Stop 6')
+												createMarker(new google.maps.LatLng(18.488627, 73.857508),map,'Route 1 : Stop 7')
+												createMarker(new google.maps.LatLng(18.478624, 73.857390),map,'Route 1 : Stop 8')
+												createMarker(new google.maps.LatLng(18.468642, 73.857820),map,'Route 1 : Stop 9')
+												createMarker(new google.maps.LatLng(18.459463, 73.857916),map,'Route 1 : Stop 10')
+												createMarker(new google.maps.LatLng(18.454496, 73.855706),map,'Route 1 : Stop 11')
+
+												createMarker(new google.maps.LatLng(18.457249, 73.851141),map,'Route 1 : Destination')
+												var BusCoordinates = 
+												[
+												    new google.maps.LatLng(18.521034, 73.841470),
+												    new google.maps.LatLng(18.513411, 73.840683),
+												    new google.maps.LatLng(18.509037, 73.843859),
+												    new google.maps.LatLng(18.503675, 73.845168),
+												    new google.maps.LatLng(18.502810, 73.850200),
+												    new google.maps.LatLng(18.497418, 73.854395),
+												    new google.maps.LatLng(18.494121, 73.857991),
+												    new google.maps.LatLng(18.488627, 73.857508),
+												    new google.maps.LatLng(18.478624, 73.857390),
+												    new google.maps.LatLng(18.468642, 73.857820),
+												    new google.maps.LatLng(18.459463, 73.857916),
+												    new google.maps.LatLng(18.454496, 73.855706),
+												    new google.maps.LatLng(18.457249, 73.851141)
+
+												];
+												var Busroute = new google.maps.Polyline
+												({
+												    path: BusCoordinates,
+												    geodesic: true,
+												    strokeColor: '#FF0000',
+												    strokeOpacity: 1.0,
+												    strokeWeight: 2
+												});
+
+												Busroute.setMap(map);
+											}	})
+
+				}
+
+
+			      google.maps.event.addDomListener(window, 'load', initialize);
+			    </script>
+
+		    		<div id="map-container">
+		 	 <div id="map-canvas"></div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h4>Routes Selected</h4></div>
+			<div class="panel-body">
+			<button type="button" id="myStateButton" data-toggle="button" class="btn btn-primary" autocomplete="off">
+				Route 1
+			</button>
+			  	 
+		  	</div>
+		</div>
+
+
 <%else%>
 	<center>
 		<p>
 	
-		<%= link_to "Log in", new_user_session_path, class: "btn btn-success btn-lg"%>
-		<%= link_to "Sign up", new_user_registration_path, class: "btn btn-warning btn-lg"%>
+			<%= link_to "Log in", new_user_session_path, class: "btn btn-success btn-lg"%>
+			<%= link_to "Sign up", new_user_registration_path, class: "btn btn-warning btn-lg"%>
 	
 		</p>
 	</center>
