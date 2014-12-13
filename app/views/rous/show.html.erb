@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Imei no:</strong>
+  <%= @rou.IMEI_no %>
+</p>
+
+<p>
+  <strong>Mobile no:</strong>
+  <%= @rou.Mobile_no %>
+</p>
+
+<%= link_to 'Edit', edit_rou_path(@rou) %> |
+<%= link_to 'Back', rous_path %>

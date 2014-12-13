@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  IMEI_no: 1
+  Mobile_no: 1
+
+two:
+  IMEI_no: 1
+  Mobile_no: 1

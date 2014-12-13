@@ -1,0 +1,34 @@
+<h1>Listing rous</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Imei no</th>
+      <th>Mobile no</th>
+      <th>User email</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rous.each do |rou| %>
+      <tr>
+        <td><%= rou.IMEI_no %></td>
+        <td><%= rou.Mobile_no %></td>
+        <td><%= rou.user.email if rou.user %></td>
+        <% if rou.user == current_user %>
+        <td><%= link_to 'Show', rou %></td>
+        <td><%= link_to 'Edit', edit_rou_path(rou) %></td>
+        <td><%= link_to 'Destroy', rou, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if user_signed_in? %>
+<%= link_to 'New Rou', new_rou_path %>
+<%end%>

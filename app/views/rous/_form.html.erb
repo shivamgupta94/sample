@@ -1,0 +1,25 @@
+<%= form_for(@rou) do |f| %>
+  <% if @rou.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rou.errors.count, "error") %> prohibited this rou from being saved:</h2>
+
+      <ul>
+      <% @rou.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :IMEI_no %><br>
+    <%= f.number_field :IMEI_no %>
+  </div>
+  <div class="form-group">
+    <%= f.label :Mobile_no %><br>
+    <%= f.number_field :Mobile_no %>
+  </div>
+  <div class="form-group">
+    <%= f.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
