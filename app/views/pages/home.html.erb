@@ -7,7 +7,12 @@
 	      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB62qZpLPkJOx3s-1qQqq4iUrH1p6Gx5Ow">
 	    </script>
 			    <script type="text/javascript">
-			    function initialize() 
+/*			     function run()
+   {
+    $("#test-checkbox").click(function () { alert(this.checked); });
+ //   $("#test-click").click(function () { $("#test-checkbox").click(); });
+   }
+			 */   function initialize() 
 			    {
 			        var mapOptions = {center: { lat: 18.521034 , lng: 73.841470},zoom: 14};
 			        
@@ -22,12 +27,10 @@
 							map: map,
 							title: title
 						});
-					}						
-
-					$('#myStateButton').on('click', function () {
-  
+					}	
   											
   									
+  									{
 												createMarker(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
 
 												createMarker(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
@@ -69,30 +72,34 @@
 												    strokeWeight: 2
 												});
 
-												Busroute.setMap(map);
-												})
+												Busroute.setMap(map);	
 
+									}				
 				}
 
 
 			      google.maps.event.addDomListener(window, 'load', initialize);
+			  	 $(document).on('pageshow', '#map-container', initialize()); 
+			     
 			    </script>
-
-		    		<div id="map-container">
-		 	 <div id="map-canvas"></div>
+		<!--	<body onload = "run()">-->
+		    		<div id="map-container" data-role="page">
+		 	  <div id="content">
+                <div id="map-canvas"></div>
+            </div>
 		</div>
 
-		<div class="panel panel-default">
+			<div class="panel panel-default">
 			<div class="panel-heading"><h4>Routes Selected</h4></div>
 			<div class="panel-body">
-			<button type="button" id="myStateButton" data-toggle="button" class="btn btn-primary" autocomplete="off">
-				Route 1
-			</button>
-			  	 
+			<label class="checkbox-inline"><input type="checkbox" id="test-checkbox" value="R1">Route 1</label>
+			<label class="checkbox-inline"><input type="checkbox" value="R2">Route 2</label>
+			<label class="checkbox-inline"><input type="checkbox" value="R3">Route 3</label>
+			<%= link_to "Update Map", root_path, class: "btn btn-primary"%>
 		  	</div>
 		</div>
-
-
+		<%= link_to "Route Details", rous_path, class: "btn btn-primary" %>
+				<!-- </body> -->
 <%else%>
 	<center>
 		<p>
