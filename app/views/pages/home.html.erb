@@ -30,7 +30,7 @@
 					}	
   											
   									
-  									{
+  						
 												createMarker(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
 
 												createMarker(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
@@ -74,11 +74,10 @@
 
 												Busroute.setMap(map);	
 
-									}				
+												
 				}
 
-
-			      google.maps.event.addDomListener(window, 'load', initialize);
+			     google.maps.event.addDomListener(window, 'load', initialize);
 			  	 $(document).on('pageshow', '#map-container', initialize()); 
 			     
 			    </script>

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @marker.lat %>
+</p>
+
+<p>
+  <strong>Long:</strong>
+  <%= @marker.long %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @marker.description %>
+</p>
+
+<!-- <p>
+  <strong>Rou:</strong>
+  <%= @marker.rou %>
+</p> -->
+
+<%= link_to 'Edit', edit_rou_marker_path(@marker.rou, @marker) %> |
+<%= link_to 'Back', rou_markers_path(@marker.rou) %>

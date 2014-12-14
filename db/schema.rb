@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213071855) do
+ActiveRecord::Schema.define(version: 20141213105207) do
+
+  create_table "markers", force: true do |t|
+    t.decimal  "lat",         precision: 20, scale: 25
+    t.decimal  "long",        precision: 20, scale: 25
+    t.string   "description"
+    t.integer  "rou_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "markers", ["rou_id"], name: "index_markers_on_rou_id"
 
   create_table "rous", force: true do |t|
     t.integer  "IMEI_no"

@@ -1,0 +1,33 @@
+<h1>Listing markers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Lat</th>
+      <th>Long</th>
+      <th>Description</th>
+     <!--  <th>Rou</th> -->
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @markers.each do |marker| %>
+      <tr>
+        <td><%= marker.lat %></td>
+        <td><%= marker.long %></td>
+        <td><%= marker.description %></td>
+        <!-- <td><%= marker.rou %></td> -->
+        <td><%= link_to 'Show', [marker.rou, marker] %></td>
+        <td><%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %></td>
+        <td><%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Marker', new_rou_marker_path %>

@@ -1,5 +1,8 @@
 Sample1::Application.routes.draw do
-  resources :rous
+
+  resources :rous do
+    resources :markers
+  end 
 
   devise_for :users
   root "pages#home"
