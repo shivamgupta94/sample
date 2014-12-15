@@ -13,13 +13,17 @@
  //   $("#test-click").click(function () { $("#test-checkbox").click(); });
    }
 			 */   function initialize() 
+
 			    {
-			        var mapOptions = {center: { lat: 18.521034 , lng: 73.841470},zoom: 14};
+			    	var arrMarkers = [];
+			    	var arrMarkers2 = [];
+			    	var map;
+			        var mapOptions = {center: { lat: 18.521034 , lng: 73.841470},zoom: 9};
 			        
-			        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+			        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 			        var marker;
-					function createMarker(coords, map, title)
+					function addMarker2(coords, map, title)
 					{
 						marker = new google.maps.Marker
 						({
@@ -27,59 +31,173 @@
 							map: map,
 							title: title
 						});
+						marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+						arrMarkers2.push(marker);
+						marker.setVisible(false);
 					}	
-  											
-  									
-  						
-												createMarker(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
+					function addMarker(location,map,title) 
+      {
+      marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      title:title
+      });
+arrMarkers.push(marker);
+marker.setVisible(false);
+}
+		addMarker(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
+		addMarker(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
+		addMarker(new google.maps.LatLng(18.509037, 73.843859),map,'Route 1 : Stop 2')
+ 		addMarker(new google.maps.LatLng(18.503675, 73.845168),map,'Route 1 : Stop 3')
+		addMarker(new google.maps.LatLng(18.502810, 73.850200),map,'Route 1 : Stop 4')
+		addMarker(new google.maps.LatLng(18.497418, 73.854395),map,'Route 1 : Stop 5')
+		addMarker(new google.maps.LatLng(18.494121, 73.857991),map,'Route 1 : Stop 6')
+		addMarker(new google.maps.LatLng(18.488627, 73.857508),map,'Route 1 : Stop 7')
+		addMarker(new google.maps.LatLng(18.478624, 73.857390),map,'Route 1 : Stop 8')
+		addMarker(new google.maps.LatLng(18.468642, 73.857820),map,'Route 1 : Stop 9')
+		addMarker(new google.maps.LatLng(18.459463, 73.857916),map,'Route 1 : Stop 10')
+		addMarker(new google.maps.LatLng(18.454496, 73.855706),map,'Route 1 : Stop 11')
+		addMarker(new google.maps.LatLng(18.457249, 73.851141),map,'Route 1 : Destination')
+			var BusCoordinates = 
+			[
+			    new google.maps.LatLng(18.521034, 73.841470),
+			    new google.maps.LatLng(18.513411, 73.840683),
+			    new google.maps.LatLng(18.509037, 73.843859),
+			    new google.maps.LatLng(18.503675, 73.845168),
+			    new google.maps.LatLng(18.502810, 73.850200),
+			    new google.maps.LatLng(18.497418, 73.854395),
+			    new google.maps.LatLng(18.494121, 73.857991),
+			    new google.maps.LatLng(18.488627, 73.857508),
+			    new google.maps.LatLng(18.478624, 73.857390),
+			    new google.maps.LatLng(18.468642, 73.857820),
+			    new google.maps.LatLng(18.459463, 73.857916),
+			    new google.maps.LatLng(18.454496, 73.855706),
+			    new google.maps.LatLng(18.457249, 73.851141)
 
-												createMarker(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
-												createMarker(new google.maps.LatLng(18.509037, 73.843859),map,'Route 1 : Stop 2')
-												createMarker(new google.maps.LatLng(18.503675, 73.845168),map,'Route 1 : Stop 3')
-												createMarker(new google.maps.LatLng(18.502810, 73.850200),map,'Route 1 : Stop 4')
-												createMarker(new google.maps.LatLng(18.497418, 73.854395),map,'Route 1 : Stop 5')
-												createMarker(new google.maps.LatLng(18.494121, 73.857991),map,'Route 1 : Stop 6')
-												createMarker(new google.maps.LatLng(18.488627, 73.857508),map,'Route 1 : Stop 7')
-												createMarker(new google.maps.LatLng(18.478624, 73.857390),map,'Route 1 : Stop 8')
-												createMarker(new google.maps.LatLng(18.468642, 73.857820),map,'Route 1 : Stop 9')
-												createMarker(new google.maps.LatLng(18.459463, 73.857916),map,'Route 1 : Stop 10')
-												createMarker(new google.maps.LatLng(18.454496, 73.855706),map,'Route 1 : Stop 11')
-
-												createMarker(new google.maps.LatLng(18.457249, 73.851141),map,'Route 1 : Destination')
-												var BusCoordinates = 
-												[
-												    new google.maps.LatLng(18.521034, 73.841470),
-												    new google.maps.LatLng(18.513411, 73.840683),
-												    new google.maps.LatLng(18.509037, 73.843859),
-												    new google.maps.LatLng(18.503675, 73.845168),
-												    new google.maps.LatLng(18.502810, 73.850200),
-												    new google.maps.LatLng(18.497418, 73.854395),
-												    new google.maps.LatLng(18.494121, 73.857991),
-												    new google.maps.LatLng(18.488627, 73.857508),
-												    new google.maps.LatLng(18.478624, 73.857390),
-												    new google.maps.LatLng(18.468642, 73.857820),
-												    new google.maps.LatLng(18.459463, 73.857916),
-												    new google.maps.LatLng(18.454496, 73.855706),
-												    new google.maps.LatLng(18.457249, 73.851141)
-
-												];
-												var Busroute = new google.maps.Polyline
-												({
-												    path: BusCoordinates,
-												    geodesic: true,
-												    strokeColor: '#FF0000',
-												    strokeOpacity: 1.0,
-												    strokeWeight: 2
-												});
-
-												Busroute.setMap(map);	
+			];
+			var Busroute = new google.maps.Polyline
+			({
+			    path: BusCoordinates,
+			    geodesic: true,
+			    strokeColor: '#FF0000',
+			    strokeOpacity: 1.0,
+			    strokeWeight: 2
+			});
 
 												
+											
+function clearOverlays() {
+  if (arrMarkers) {
+    for( var i = 0, n = arrMarkers.length; i < n; ++i ) {
+      arrMarkers[i].setMap(null);
+      Busroute.setMap(null);
+    }
+  }
+}
+
+function showOverlays() {
+  if (arrMarkers) {
+    for( var i = 0, n = arrMarkers.length; i < n; ++i ) {
+      arrMarkers[i].setMap(map);
+      arrMarkers[i].setVisible(true);
+      Busroute.setMap(map);
+    }
+  }
+}
+
+$('#R1').change(function() {
+ if( $('#R1').prop("checked")) {
+          showOverlays();
+          }
+          else  {
+          clearOverlays();
+          }
+});			
+				
+
+		addMarker2(new google.maps.LatLng(18.521034, 74.841470),map,'Route 2 : Source')
+		addMarker2(new google.maps.LatLng(18.513411, 74.840683),map,'Route 2 : Stop 1')
+		addMarker2(new google.maps.LatLng(18.509037, 74.843859),map,'Route 2 : Stop 2')
+ 		addMarker2(new google.maps.LatLng(18.503675, 74.845168),map,'Route 2 : Stop 3')
+		addMarker2(new google.maps.LatLng(18.502810, 74.850200),map,'Route 2 : Stop 4')
+		addMarker2(new google.maps.LatLng(18.497418, 74.854395),map,'Route 2 : Stop 5')
+		addMarker2(new google.maps.LatLng(18.494121, 74.857991),map,'Route 2 : Stop 6')
+		addMarker2(new google.maps.LatLng(18.488627, 74.857508),map,'Route 2 : Stop 7')
+		addMarker2(new google.maps.LatLng(18.478624, 74.857390),map,'Route 2 : Stop 8')
+		addMarker2(new google.maps.LatLng(18.468642, 74.857820),map,'Route 2 : Stop 9')
+		addMarker2(new google.maps.LatLng(18.459463, 74.857916),map,'Route 2 : Stop 10')
+		addMarker2(new google.maps.LatLng(18.454496, 74.855706),map,'Route 2 : Stop 11')
+		addMarker2(new google.maps.LatLng(18.457249, 74.851141),map,'Route 2 : Destination')
+			var BusCoordinates2 = 
+			[
+			    new google.maps.LatLng(18.521034, 74.841470),
+			    new google.maps.LatLng(18.513411, 74.840683),
+			    new google.maps.LatLng(18.509037, 74.843859),
+			    new google.maps.LatLng(18.503675, 74.845168),
+			    new google.maps.LatLng(18.502810, 74.850200),
+			    new google.maps.LatLng(18.497418, 74.854395),
+			    new google.maps.LatLng(18.494121, 74.857991),
+			    new google.maps.LatLng(18.488627, 74.857508),
+			    new google.maps.LatLng(18.478624, 74.857390),
+			    new google.maps.LatLng(18.468642, 74.857820),
+			    new google.maps.LatLng(18.459463, 74.857916),
+			    new google.maps.LatLng(18.454496, 74.855706),
+			    new google.maps.LatLng(18.457249, 74.851141)
+
+			];
+			var Busroute2 = new google.maps.Polyline
+			({
+			    path: BusCoordinates2,
+			    geodesic: true,
+			    strokeColor: '#0000FF',
+			    strokeOpacity: 1.0,
+			    strokeWeight: 2
+			});
+
+												
+											
+function clearOverlays_two() {
+  if (arrMarkers) {
+    for( var i = 0, n = arrMarkers2.length; i < n; ++i ) {
+      arrMarkers2[i].setMap(null);
+      Busroute2.setMap(null);
+    }
+  }
+}
+
+function showOverlays_two() {
+  if (arrMarkers) {
+    for( var i = 0, n = arrMarkers2.length; i < n; ++i ) {
+      arrMarkers2[i].setMap(map);
+      arrMarkers2[i].setVisible(true);
+      Busroute2.setMap(map);
+    }
+  }
+}
+
+$('#R2').change(function() {
+ if( $('#R2').prop("checked")) {
+          showOverlays_two();
+          }
+          else  {
+          clearOverlays_two();
+          }
+});		
+
+
 				}
 
 			     google.maps.event.addDomListener(window, 'load', initialize);
 			  	 $(document).on('pageshow', '#map-container', initialize()); 
-			     
+			    
+
+
+/*google.maps.event.addListener(map, 'click', function(event) 
+      {
+      addMarker(event.latLng);
+      });*/
+
+
 			    </script>
 		<!--	<body onload = "run()">-->
 		    		<div id="map-container" data-role="page">
@@ -91,9 +209,12 @@
 			<div class="panel panel-default">
 			<div class="panel-heading"><h4>Routes Selected</h4></div>
 			<div class="panel-body">
-			<label class="checkbox-inline"><input type="checkbox" id="test-checkbox" value="R1">Route 1</label>
-			<label class="checkbox-inline"><input type="checkbox" value="R2">Route 2</label>
-			<label class="checkbox-inline"><input type="checkbox" value="R3">Route 3</label>
+			<label class="checkbox-inline"><input type="checkbox" id="R1">Route 1</label>
+			
+			<label class="checkbox-inline"><input type="checkbox" id="R2">Route 2</label>
+			
+	
+
 			<%= link_to "Update Map", root_path, class: "btn btn-primary"%>
 		  	</div>
 		</div>
