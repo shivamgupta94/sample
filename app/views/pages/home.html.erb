@@ -3,6 +3,17 @@
 
 
 <% if user_signed_in? %>
+	<br>
+		
+		 <% @markers.each do |marker| %>
+	
+      	<%= marker.lat %>
+        <%= marker.long %>
+        <%= marker.description %>
+        <br>
+        <% end %>
+
+	
 		<script type="text/javascript"
 	      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB62qZpLPkJOx3s-1qQqq4iUrH1p6Gx5Ow">
 	    </script>
@@ -45,6 +56,15 @@
 arrMarkers.push(marker);
 marker.setVisible(false);
 }
+		    	<%
+if params[:rou_id] && @Rou = Rou.find_by_id(params[:rou_id])
+    @markers = Rou.find_by_id(params[:rou_id]).markers
+  end
+  %>
+<% @markers.each do |marker| %>
+addMarker(new google.maps.LatLng(<%= marker.lat%>, <%= marker.long%>),map,'YAY') 
+<% end %>
+		
 		addMarker(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
 		addMarker(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
 		addMarker(new google.maps.LatLng(18.509037, 73.843859),map,'Route 1 : Stop 2')
@@ -185,6 +205,8 @@ $('#R2').change(function() {
 });		
 
 
+
+
 				}
 
 			     google.maps.event.addDomListener(window, 'load', initialize);
@@ -199,6 +221,7 @@ $('#R2').change(function() {
 
 
 			    </script>
+
 		<!--	<body onload = "run()">-->
 		    		<div id="map-container" data-role="page">
 		 	  <div id="content">
@@ -216,6 +239,9 @@ $('#R2').change(function() {
 		  	</div>
 		</div>
 		<%= link_to "Route Details", rous_path, class: "btn btn-primary" %>
+	
+               
+      
 				<!-- </body> -->
 <%else%>
 	<center>
