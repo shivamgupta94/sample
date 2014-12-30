@@ -1,6 +1,10 @@
 <h1>Listing rous</h1>
+<%= link_to 'Back', root_path %> |
+<% if user_signed_in? %>
+<%= link_to 'New Rou', new_rou_path %>
+<%end%>
 
-<table>
+<!-- <table>
   <thead>
     <tr>
       <th>Imei no</th>
@@ -26,10 +30,73 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+</table> -->
 
-<br>
-<%= link_to 'Back', root_path %> |
-<% if user_signed_in? %>
-<%= link_to 'New Rou', new_rou_path %>
+
+
+<% @rous.each_with_index do |rou,index| %>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+
+  <div class="panel panel-default">
+  
+    <div class="panel-heading" role="tab" id="<%= index.to_s %>">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index.to_s %>" aria-expanded="false" aria-controls="collapse<%= index.to_s %>">
+      Route number : <%= index+1 %>
+    </br>
+        IMEI_no : <%= rou.IMEI_no %>
+      </br>
+        Mobile_no : <%= rou.Mobile_no %>
+        </br>
+        user : <%= rou.user.email if rou.user %>
+        <% if rou.user == current_user %>
+        </br>
+        <%= link_to 'Show', rou %>
+        <%= link_to 'Edit', edit_rou_path(rou) %>
+        <%= link_to 'Destroy', rou, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%end%>
+      </a>  
+      </h4>
+    </div>
+
+<% if index == 0 %>
+    <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
+      <div class="panel-body">
+
+Route 1 details here
+
+      </div>
+    </div>
 <%end%>
+<%if index == 1%>
+    <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
+      <div class="panel-body">
+route 2 details here
+      </div>
+    </div>
+<%end%>
+<%if index == 2%>
+    <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
+      <div class="panel-body">
+route 3 details here
+      </div>
+    </div>
+<%end%>
+<%if index == 3%>
+    <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
+      <div class="panel-body">
+route 4 details here
+      </div>
+    </div>
+<%end%>
+<%if index == 4%>
+    <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
+      <div class="panel-body">
+route 5 details here
+      </div>
+    </div>
+<%end%>
+</div>
+</div>
+<% end %>
+<br>

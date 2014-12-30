@@ -5,6 +5,9 @@ class PagesController < ApplicationController
   	@markers = Marker.all
   end
   
+
+
   def about
+  	 
   end
 end

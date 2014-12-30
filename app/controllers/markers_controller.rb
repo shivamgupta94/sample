@@ -55,7 +55,7 @@ class MarkersController < ApplicationController
   def update
       rou = Rou.find(params[:rou_id])
     #2nd you retrieve the comment thanks to params[:id]
-    @marker = rou.markers.find(marker_params)
+    @marker = rou.markers.find(params[:id])
 
     respond_to do |format|
       if @marker.update(marker_params)
@@ -73,13 +73,16 @@ class MarkersController < ApplicationController
   def destroy
     rou = Rou.find(params[:rou_id])
     #2nd you retrieve the comment thanks to params[:id]
-    @marker = rou.markers.find(marker_params)
+    @marker = rou.markers.find(params[:id])
     @marker.destroy
     respond_to do |format|
       format.html { redirect_to rou_markers_url }
       format.json { head :no_content }
     end
   end
+
+
+ 
 
   private
     # Use callbacks to share common setup or constraints between actions.

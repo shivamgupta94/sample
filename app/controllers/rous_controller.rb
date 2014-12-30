@@ -2,6 +2,9 @@ class RousController < ApplicationController
   before_action :set_rou, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index]
+  
+
+
   # GET /rous
   # GET /rous.json
   def index

@@ -3,15 +3,7 @@
 
 
 <% if user_signed_in? %>
-	<br>
-		
-		 <% @markers.each do |marker| %>
-	
-      	<%= marker.lat %>
-        <%= marker.long %>
-        <%= marker.description %>
-        <br>
-        <% end %>
+
 
 	
 		<script type="text/javascript"
@@ -47,24 +39,25 @@
 						marker.setVisible(false);
 					}	
 					function addMarker(location,map,title) 
-      {
-      marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      title:title
-      });
-arrMarkers.push(marker);
-marker.setVisible(false);
-}
-		    	<%
-if params[:rou_id] && @Rou = Rou.find_by_id(params[:rou_id])
-    @markers = Rou.find_by_id(params[:rou_id]).markers
-  end
-  %>
-<% @markers.each do |marker| %>
-addMarker(new google.maps.LatLng(<%= marker.lat%>, <%= marker.long%>),map,'YAY') 
-<% end %>
-		
+      				{
+				      	marker = new google.maps.Marker
+				      	({
+				      		position: location,
+				      		map: map,
+				      		title:title
+    					});
+					    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/red-dot.png')
+						arrMarkers.push(marker);
+						marker.setVisible(false);
+					}
+	<%	if params[:rou_id] && @Rou = Rou.find_by_id(params[:rou_id])
+    	@markers = Rou.find_by_id(params[:rou_id]).markers
+  		end 
+  	%>
+	<% @markers.each do |marker| %>
+	addMarker(new google.maps.LatLng(<%= marker.lat%>, <%= marker.long%>),map,'<%= marker.description%>') 
+	<% end %>
+		{
 		addMarker(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
 		addMarker(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
 		addMarker(new google.maps.LatLng(18.509037, 73.843859),map,'Route 1 : Stop 2')
@@ -174,20 +167,26 @@ $('#R1').change(function() {
 			    strokeWeight: 2
 			});
 
-												
+			}									
 											
-function clearOverlays_two() {
-  if (arrMarkers) {
-    for( var i = 0, n = arrMarkers2.length; i < n; ++i ) {
+function clearOverlays_two() 
+{
+  if (arrMarkers) 
+  {
+    for( var i = 0, n = arrMarkers2.length; i < n; ++i ) 
+    {
       arrMarkers2[i].setMap(null);
       Busroute2.setMap(null);
     }
   }
 }
 
-function showOverlays_two() {
-  if (arrMarkers) {
-    for( var i = 0, n = arrMarkers2.length; i < n; ++i ) {
+function showOverlays_two() 
+{
+  if (arrMarkers) 
+  {
+    for( var i = 0, n = arrMarkers2.length; i < n; ++i ) 
+    {
       arrMarkers2[i].setMap(map);
       arrMarkers2[i].setVisible(true);
       Busroute2.setMap(map);
@@ -204,32 +203,19 @@ $('#R2').change(function() {
           }
 });		
 
-
-
-
 				}
 
-			     google.maps.event.addDomListener(window, 'load', initialize);
-			  	 $(document).on('pageshow', '#map-container', initialize()); 
-			    
+    google.maps.event.addDomListener(window, 'load', initialize);
+ 	 $(document).on('pageshow', '#map-container', initialize()); 
+			 </script>
 
-
-/*google.maps.event.addListener(map, 'click', function(event) 
-      {
-      addMarker(event.latLng);
-      });*/
-
-
-			    </script>
-
-		<!--	<body onload = "run()">-->
-		    		<div id="map-container" data-role="page">
-		 	  <div id="content">
+		<div id="map-container" data-role="page">
+		 	<div id="content">
                 <div id="map-canvas"></div>
             </div>
 		</div>
 
-			<div class="panel panel-default">
+		<div class="panel panel-default">
 			<div class="panel-heading"><h4>Routes Selected</h4></div>
 			<div class="panel-body">
 			<label class="checkbox-inline"><input type="checkbox" id="R1">Route 1</label>
@@ -240,9 +226,6 @@ $('#R2').change(function() {
 		</div>
 		<%= link_to "Route Details", rous_path, class: "btn btn-primary" %>
 	
-               
-      
-				<!-- </body> -->
 <%else%>
 	<center>
 		<p>
