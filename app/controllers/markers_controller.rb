@@ -59,7 +59,7 @@ class MarkersController < ApplicationController
 
     respond_to do |format|
       if @marker.update(marker_params)
-        format.html { redirect_to([@marker.rou, @marker], notice: 'Marker was successfully updated.') }
+        format.html { redirect_to(rous_url, notice: 'Marker was successfully updated.') }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -76,7 +76,7 @@ class MarkersController < ApplicationController
     @marker = rou.markers.find(params[:id])
     @marker.destroy
     respond_to do |format|
-      format.html { redirect_to rou_markers_url }
+      format.html { redirect_to rous_url }
       format.json { head :no_content }
     end
   end

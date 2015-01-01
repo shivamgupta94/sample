@@ -35,13 +35,13 @@
 
 
 <% @rous.each_with_index do |rou,index| %>
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
 
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
-  
     <div class="panel-heading" role="tab" id="<%= index.to_s %>">
       <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index.to_s %>" aria-expanded="false" aria-controls="collapse<%= index.to_s %>">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index.to_s %>" aria-expanded="true" aria-controls="collapse<%= index.to_s %>">
+
       Route number : <%= index+1 %>
     </br>
         IMEI_no : <%= rou.IMEI_no %>
@@ -63,7 +63,18 @@
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
 
-Route 1 details here
+         <% rou.markers.each do |marker| %>
+     
+        <%= marker.lat %>
+        <%= marker.long %>
+        <%= marker.description %>
+        <!-- <td><%= marker.rou %></td> -->
+       <%= link_to 'Show', [marker.rou, marker] %>
+        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
+      </br>
+    <% end %>
+    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
 
       </div>
     </div>
@@ -71,32 +82,75 @@ Route 1 details here
 <%if index == 1%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-route 2 details here
+     <% rou.markers.each do |marker| %>
+     
+        <%= marker.lat %>
+        <%= marker.long %>
+       <%= marker.description %>
+        <!-- <td><%= marker.rou %></td> -->
+       <%= link_to 'Show', [marker.rou, marker] %>
+      <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
+      </br>
+    <% end %>
+    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
       </div>
     </div>
 <%end%>
 <%if index == 2%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-route 3 details here
+        <% rou.markers.each do |marker| %>
+     
+        <%= marker.lat %>
+        <%= marker.long %>
+       <%= marker.description %>
+        <!-- <td><%= marker.rou %></td> -->
+       <%= link_to 'Show', [marker.rou, marker] %>
+      <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
+      </br>
+    <% end %>
+    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
       </div>
     </div>
 <%end%>
 <%if index == 3%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-route 4 details here
+  <% rou.markers.each do |marker| %>
+     
+        <%= marker.lat %>
+        <%= marker.long %>
+       <%= marker.description %>
+        <!-- <td><%= marker.rou %></td> -->
+       <%= link_to 'Show', [marker.rou, marker] %>
+      <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
+      </br>
+    <% end %>
       </div>
     </div>
 <%end%>
 <%if index == 4%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-route 5 details here
+  <% rou.markers.each do |marker| %>
+     
+        <%= marker.lat %>
+        <%= marker.long %>
+       <%= marker.description %>
+        <!-- <td><%= marker.rou %></td> -->
+       <%= link_to 'Show', [marker.rou, marker] %>
+      <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
+      </br>
+    <% end %>
       </div>
     </div>
 <%end%>
 </div>
 </div>
 <% end %>
+
 <br>

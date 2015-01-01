@@ -4,7 +4,7 @@ class RousController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   
 
-
+  
   # GET /rous
   # GET /rous.json
   def index
@@ -32,7 +32,7 @@ class RousController < ApplicationController
 
     respond_to do |format|
       if @rou.save
-        format.html { redirect_to @rou, notice: 'Route was successfully created.' }
+        format.html { redirect_to rous_url, notice: 'Route was successfully created.' }
         format.json { render action: 'show', status: :created, location: @rou }
       else
         format.html { render action: 'new' }
@@ -46,7 +46,7 @@ class RousController < ApplicationController
   def update
     respond_to do |format|
       if @rou.update(rou_params)
-        format.html { redirect_to @rou, notice: 'Route was successfully updated.' }
+        format.html { redirect_to rous_url, notice: 'Route was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
