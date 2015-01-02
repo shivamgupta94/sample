@@ -1,6 +1,7 @@
 class MarkersController < ApplicationController
   before_action :set_marker, only: [:show, :edit, :update, :destroy]
-
+  #before_action :authenticate_user!, except: [:index]
+  respond_to :json, :xml
   # GET /markers
   # GET /markers.json
   def index
@@ -42,10 +43,10 @@ class MarkersController < ApplicationController
     respond_to do |format|
       if @marker.save
         format.html { redirect_to([@marker.rou,@marker], notice: 'Marker was successfully created.') }
-        #format.json { render action: 'show', status: :created, location: @marker }
+        format.json { render action: 'show', status: :created, location: @marker }
       else
         format.html { render action: 'new'}
-        #format.json { render json: @marker.errors, status: :unprocessable_entity }
+        format.json { render json: @marker.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -90,8 +91,10 @@ class MarkersController < ApplicationController
       @marker = Marker.find(params[:id])
     end
 
+    
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def marker_params
-      params.require(:marker).permit(:lat, :long, :description, :rou_id)
+      params.require(:marker).permit(:lat, :lon,:description, :rou_id)
     end
 end

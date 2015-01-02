@@ -1,7 +1,7 @@
-<h1>Listing rous</h1>
+<h1>All routes</h1>
 <%= link_to 'Back', root_path %> |
 <% if user_signed_in? %>
-<%= link_to 'New Rou', new_rou_path %>
+<%= link_to 'Create New Route', new_rou_path %>
 <%end%>
 
 <!-- <table>
@@ -66,68 +66,96 @@
          <% rou.markers.each do |marker| %>
      
         <%= marker.lat %>
-        <%= marker.long %>
+        <%= marker.lon %>
         <%= marker.description %>
+        <% if rou.user != current_user %>
+        </br>
+        <%end%>
         <!-- <td><%= marker.rou %></td> -->
+        <% if rou.user == current_user %>
        <%= link_to 'Show', [marker.rou, marker] %>
         <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
         <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
       </br>
+      <% end %>
     <% end %>
+    <% if rou.user == current_user %>
     <%= link_to 'New Marker', new_rou_marker_path(rou) %>
-
+    <% end %>
       </div>
     </div>
 <%end%>
 <%if index == 1%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-     <% rou.markers.each do |marker| %>
+       <% rou.markers.each do |marker| %>
      
         <%= marker.lat %>
-        <%= marker.long %>
-       <%= marker.description %>
+        <%= marker.lon %>
+        <%= marker.description %>
+        <% if rou.user != current_user %>
+        </br>
+        <%end%>
         <!-- <td><%= marker.rou %></td> -->
+        <% if rou.user == current_user %>
        <%= link_to 'Show', [marker.rou, marker] %>
-      <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
         <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
       </br>
+      <% end %>
     <% end %>
+    <% if rou.user == current_user %>
     <%= link_to 'New Marker', new_rou_marker_path(rou) %>
+    <% end %>
       </div>
     </div>
 <%end%>
 <%if index == 2%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-        <% rou.markers.each do |marker| %>
+          <% rou.markers.each do |marker| %>
      
         <%= marker.lat %>
-        <%= marker.long %>
-       <%= marker.description %>
+        <%= marker.lon %>
+        <%= marker.description %>
+        <% if rou.user != current_user %>
+        </br>
+        <%end%>
         <!-- <td><%= marker.rou %></td> -->
+        <% if rou.user == current_user %>
        <%= link_to 'Show', [marker.rou, marker] %>
-      <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
         <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
       </br>
+      <% end %>
     <% end %>
+    <% if rou.user == current_user %>
     <%= link_to 'New Marker', new_rou_marker_path(rou) %>
+    <% end %>
       </div>
     </div>
 <%end%>
 <%if index == 3%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-  <% rou.markers.each do |marker| %>
+    <% rou.markers.each do |marker| %>
      
         <%= marker.lat %>
-        <%= marker.long %>
-       <%= marker.description %>
+        <%= marker.lon %>
+        <%= marker.description %>
+        <% if rou.user != current_user %>
+        </br>
+        <%end%>
         <!-- <td><%= marker.rou %></td> -->
+        <% if rou.user == current_user %>
        <%= link_to 'Show', [marker.rou, marker] %>
-      <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
         <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
       </br>
+      <% end %>
+    <% end %>
+    <% if rou.user == current_user %>
+    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
     <% end %>
       </div>
     </div>
@@ -135,16 +163,24 @@
 <%if index == 4%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-  <% rou.markers.each do |marker| %>
+    <% rou.markers.each do |marker| %>
      
         <%= marker.lat %>
-        <%= marker.long %>
-       <%= marker.description %>
+        <%= marker.lon %>
+        <%= marker.description %>
+        <% if rou.user != current_user %>
+        </br>
+        <%end%>
         <!-- <td><%= marker.rou %></td> -->
+        <% if rou.user == current_user %>
        <%= link_to 'Show', [marker.rou, marker] %>
-      <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
+        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
         <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
       </br>
+      <% end %>
+    <% end %>
+    <% if rou.user == current_user %>
+    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
     <% end %>
       </div>
     </div>
@@ -152,5 +188,3 @@
 </div>
 </div>
 <% end %>
-
-<br>

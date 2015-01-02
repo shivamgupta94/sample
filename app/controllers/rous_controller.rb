@@ -1,8 +1,8 @@
 class RousController < ApplicationController
   before_action :set_rou, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:index]
-  
+  #before_action :authenticate_user!, except: [:index]
+  respond_to :json, :xml
 
   
   # GET /rous
@@ -28,7 +28,7 @@ class RousController < ApplicationController
   # POST /rous
   # POST /rous.json
   def create
-    @rou = current_user.rous.build(rou_params)
+    @rou = Rou.new(rou_params)
 
     respond_to do |format|
       if @rou.save

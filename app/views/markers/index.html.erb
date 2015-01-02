@@ -17,7 +17,7 @@
     <% @markers.each do |marker| %>
       <tr>
         <td><%= marker.lat %></td>
-        <td><%= marker.long %></td>
+        <td><%= marker.lon %></td>
         <td><%= marker.description %></td>
         <!-- <td><%= marker.rou %></td> -->
         <td><%= link_to 'Show', [marker.rou, marker] %></td>

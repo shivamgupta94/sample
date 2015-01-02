@@ -1,23 +1,16 @@
 <div class= "jumbotron">
 <h1><center>Welcome to Fleet Manager</center></h1>
 
-
 <% if user_signed_in? %>
 
-
-	
 		<script type="text/javascript"
 	      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB62qZpLPkJOx3s-1qQqq4iUrH1p6Gx5Ow">
 	    </script>
-			    <script type="text/javascript">
-/*			     function run()
-   {
-    $("#test-checkbox").click(function () { alert(this.checked); });
- //   $("#test-click").click(function () { $("#test-checkbox").click(); });
-   }
-			 */   function initialize() 
+		<script type="text/javascript">
 
-			    {
+		  function initialize() 
+
+		  {
 			    	var arrMarkers = [];
 			    	var arrMarkers2 = [];
 			    	var map;
@@ -38,7 +31,7 @@
 						arrMarkers2.push(marker);
 						marker.setVisible(false);
 					}	
-					function addMarker(location,map,title) 
+					function addMarker1(location,map,title) 
       				{
 				      	marker = new google.maps.Marker
 				      	({
@@ -50,27 +43,28 @@
 						arrMarkers.push(marker);
 						marker.setVisible(false);
 					}
-	<%	if params[:rou_id] && @Rou = Rou.find_by_id(params[:rou_id])
-    	@markers = Rou.find_by_id(params[:rou_id]).markers
-  		end 
-  	%>
-	<% @markers.each do |marker| %>
-	addMarker(new google.maps.LatLng(<%= marker.lat%>, <%= marker.long%>),map,'<%= marker.description%>') 
+
+	<% @rou.each_with_index do |rou,index| %>
+	<% rou.markers.each do |marker| %>
+	addMarker<%= index+1%>(new google.maps.LatLng(<%= marker.lat%>, <%= marker.lon%>),map,'<%= marker.description%>') 
 	<% end %>
+	<% end %>
+		
+
 		{
-		addMarker(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
-		addMarker(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
-		addMarker(new google.maps.LatLng(18.509037, 73.843859),map,'Route 1 : Stop 2')
- 		addMarker(new google.maps.LatLng(18.503675, 73.845168),map,'Route 1 : Stop 3')
-		addMarker(new google.maps.LatLng(18.502810, 73.850200),map,'Route 1 : Stop 4')
-		addMarker(new google.maps.LatLng(18.497418, 73.854395),map,'Route 1 : Stop 5')
-		addMarker(new google.maps.LatLng(18.494121, 73.857991),map,'Route 1 : Stop 6')
-		addMarker(new google.maps.LatLng(18.488627, 73.857508),map,'Route 1 : Stop 7')
-		addMarker(new google.maps.LatLng(18.478624, 73.857390),map,'Route 1 : Stop 8')
-		addMarker(new google.maps.LatLng(18.468642, 73.857820),map,'Route 1 : Stop 9')
-		addMarker(new google.maps.LatLng(18.459463, 73.857916),map,'Route 1 : Stop 10')
-		addMarker(new google.maps.LatLng(18.454496, 73.855706),map,'Route 1 : Stop 11')
-		addMarker(new google.maps.LatLng(18.457249, 73.851141),map,'Route 1 : Destination')
+		addMarker1(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
+		addMarker1(new google.maps.LatLng(18.513411, 73.840683),map,'Route 1 : Stop 1')
+		addMarker1(new google.maps.LatLng(18.509037, 73.843859),map,'Route 1 : Stop 2')
+ 		addMarker1(new google.maps.LatLng(18.503675, 73.845168),map,'Route 1 : Stop 3')
+		addMarker1(new google.maps.LatLng(18.502810, 73.850200),map,'Route 1 : Stop 4')
+		addMarker1(new google.maps.LatLng(18.497418, 73.854395),map,'Route 1 : Stop 5')
+		addMarker1(new google.maps.LatLng(18.494121, 73.857991),map,'Route 1 : Stop 6')
+		addMarker1(new google.maps.LatLng(18.488627, 73.857508),map,'Route 1 : Stop 7')
+		addMarker1(new google.maps.LatLng(18.478624, 73.857390),map,'Route 1 : Stop 8')
+		addMarker1(new google.maps.LatLng(18.468642, 73.857820),map,'Route 1 : Stop 9')
+		addMarker1(new google.maps.LatLng(18.459463, 73.857916),map,'Route 1 : Stop 10')
+		addMarker1(new google.maps.LatLng(18.454496, 73.855706),map,'Route 1 : Stop 11')
+		addMarker1(new google.maps.LatLng(18.457249, 73.851141),map,'Route 1 : Destination')
 			var BusCoordinates = 
 			[
 			    new google.maps.LatLng(18.521034, 73.841470),
@@ -183,7 +177,7 @@ function clearOverlays_two()
 
 function showOverlays_two() 
 {
-  if (arrMarkers) 
+  if (arrMarkers2) 
   {
     for( var i = 0, n = arrMarkers2.length; i < n; ++i ) 
     {
@@ -195,12 +189,14 @@ function showOverlays_two()
 }
 
 $('#R2').change(function() {
- if( $('#R2').prop("checked")) {
+ if( $('#R2').prop("checked")) 
+ 	{
           showOverlays_two();
-          }
-          else  {
+    }
+else  
+	{
           clearOverlays_two();
-          }
+    }
 });		
 
 				}
@@ -224,7 +220,7 @@ $('#R2').change(function() {
 		
 		  	</div>
 		</div>
-		<%= link_to "Route Details", rous_path, class: "btn btn-primary" %>
+		<%= link_to "All Route Details", rous_path, class: "btn btn-primary" %>
 	
 <%else%>
 	<center>

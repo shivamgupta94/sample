@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213105207) do
+ActiveRecord::Schema.define(version: 20150102190314) do
 
   create_table "markers", force: true do |t|
     t.decimal  "lat",         precision: 20, scale: 25
-    t.decimal  "long",        precision: 20, scale: 25
+    t.decimal  "lon",         precision: 20, scale: 25
     t.string   "description"
     t.integer  "rou_id"
     t.datetime "created_at"
