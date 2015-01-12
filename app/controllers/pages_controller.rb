@@ -5,9 +5,13 @@ class PagesController < ApplicationController
   	@markers = Marker.all
   end
   
-
+  def list
+  	 @rou = Rou.all
+  	#rou = Rou.find(params[:rou_id])
+  	@markers = Marker.all
+  end
 
   def about
-  	 
+  	
   end
 end

@@ -1,15 +1,83 @@
 <p id="notice"><%= notice %></p>
+<%r=8%>
+<%= link_to 'Back', root_path %>
 
-<p>
-  <strong>Imei no:</strong>
-  <%= @rou.IMEI_no %>
-</p>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" >
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse" aria-expanded="true" aria-controls="collapse">
 
-<p>
-  <strong>Mobile no:</strong>
-  <%= @rou.Mobile_no %>
-</p>
+      </br>
+        IMEI_no : <%= @rou.IMEI_no %>
+      </br>
+        Mobile_no : <%= @rou.Mobile_no %>
+        </br>
+      </a>  
+      </h4>
+       <% if @rou.user == current_user %>
+        </br>
+        <%= link_to 'Edit', edit_rou_path(@rou) %>
+        <%= link_to 'Destroy', @rou, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%end%>
+    </div>
+    <div id="collapse" class="panel-collapse collapse in" role="tabpanel" >
+      <div class="panel-body">
+   
+        <table class="tablesorter" id="this0">
+        <thead>
+         <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Stop #</th>
+         <th>Latitude</th>
+         <th>Longitude</th>
+         
+         </tr>
+        </thead>
+        <tbody>
+          <% count=0 %>
+      <% @rou.markers.each do |marker| %>
+          <% if marker.stop_no.nil? %>
+            <% @curr = marker.dup %>
+            <%else%>
+          <tr>
+            <td><%= count+1 %></td>
+          <td><%= marker.description %></td>
+          <td><%= marker.stop_no%></td>
+          <td> <%= marker.lat.round(r) %></td>
+          <td><%= marker.lon.round(r) %></td>
+          <% count=count+1 %>
+          
+        <!-- <td><%= marker.rou %></td> -->
+          <% if @rou.user == current_user %>
+          <td>  <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %></td>
+          <td>  <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </br>
+          <% end %>
+      </tr>
+      <%end%>
+      <% end %>
+   </tbody>
+</table>
+ 
+   At time: <b><%= @curr.try(:description)%></b> </br>Latitude:<b><%= @curr.try(:lat).round(r) if @curr.try(:lat) %></b></br> Longitude:<b><%= @curr.try(:lon).round(r) if @curr.try(:lon) %></b></br>
+   <% if @rou.user == current_user %>
+    <%= link_to 'Add New Marker', new_rou_marker_path(@rou), class: "btn btn-primary" %>
+  
+    <% end %>
+    </div>
+    </div>
+  </div>
+    </div>
 
-<%= link_to 'View Markers', rous_path %> |
-<%= link_to 'Edit', edit_rou_path(@rou) %> |
-<%= link_to 'Back', rous_path %>
+    <script>
+$(document).ready(function() 
+    { 
+        $("#this0").tablesorter({
+    theme: 'bootstrap',
+  widgets: ['uitheme']
+}); 
+    } 
+); 
+</script>

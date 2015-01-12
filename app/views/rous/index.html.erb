@@ -1,39 +1,12 @@
 <h1>All routes</h1>
-<%= link_to 'Back', root_path %> |
+<%= link_to 'Back', root_path %> 
 <% if user_signed_in? %>
-<%= link_to 'Create New Route', new_rou_path %>
+<% if current_user.admin? %>
+|<%= link_to 'Create New Route', new_rou_path%>
+
 <%end%>
-
-<!-- <table>
-  <thead>
-    <tr>
-      <th>Imei no</th>
-      <th>Mobile no</th>
-      <th>User email</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @rous.each do |rou| %>
-      <tr>
-        <td><%= rou.IMEI_no %></td>
-        <td><%= rou.Mobile_no %></td>
-        <td><%= rou.user.email if rou.user %></td>
-        <% if rou.user == current_user %>
-        <td><%= link_to 'Show', rou %></td>
-        <td><%= link_to 'Edit', edit_rou_path(rou) %></td>
-        <td><%= link_to 'Destroy', rou, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <%end%>
-      </tr>
-    <% end %>
-  </tbody>
-</table> -->
-
-
-
+<%end%>
+<%r = 5%>
 <% @rous.each_with_index do |rou,index| %>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -42,149 +15,327 @@
       <h4 class="panel-title">
       <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%= index.to_s %>" aria-expanded="true" aria-controls="collapse<%= index.to_s %>">
 
-      Route number : <%= index+1 %>
-    </br>
+      Route number : <%= index+1 %> 
+      </br>
         IMEI_no : <%= rou.IMEI_no %>
       </br>
         Mobile_no : <%= rou.Mobile_no %>
         </br>
-        user : <%= rou.user.email if rou.user %>
-        <% if rou.user == current_user %>
-        </br>
-        <%= link_to 'Show', rou %>
-        <%= link_to 'Edit', edit_rou_path(rou) %>
-        <%= link_to 'Destroy', rou, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <%end%>
       </a>  
       </h4>
+       <% if rou.user == current_user %>
+        </br>
+         <!--  <%= link_to 'Show', rou %>
+ -->    <%= link_to 'Edit', edit_rou_path(rou) %>
+        <%= link_to 'Destroy', rou, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <%end%>
     </div>
 
 <% if index == 0 %>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-
-         <% rou.markers.each do |marker| %>
-     
-        <%= marker.lat %>
-        <%= marker.lon %>
-        <%= marker.description %>
-        <% if rou.user != current_user %>
-        </br>
-        <%end%>
+   
+        <table class="tablesorter" id="this0">
+        <thead>
+         <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Stop #</th>
+         <th>Latitude</th>
+         <th>Longitude</th>
+         
+         </tr>
+        </thead>
+        <tbody>
+          <% count=0 %>
+      <% rou.markers.each do |marker| %>
+          <% if marker.stop_no.nil? %>
+            <% @curr = marker.dup %>
+            <%else%>
+          <tr>
+            <td><%= count+1 %></td>
+          <td><%= marker.description %></td>
+          <td><%= marker.stop_no%></td>
+          <td> <%= marker.lat.round(r) %></td>
+          <td><%= marker.lon.round(r) %></td>
+          <% count=count+1 %>
+          
         <!-- <td><%= marker.rou %></td> -->
-        <% if rou.user == current_user %>
-       <%= link_to 'Show', [marker.rou, marker] %>
-        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
-        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
-      </br>
+          <% if rou.user == current_user %>
+          <td>  <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %></td>
+          <td>  <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </br>
+          <% end %>
+      </tr>
+      <%end%>
       <% end %>
+   </tbody>
+</table>
+ 
+   At time: <b><%= @curr.try(:description)%></b> </br>Latitude:<b><%= @curr.try(:lat).round(r) if @curr.try(:lat) %></b></br> Longitude:<b><%= @curr.try(:lon).round(r) if @curr.try(:lon) %></b></br>
+   <% if rou.user == current_user %>
+    <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
+  
     <% end %>
-    <% if rou.user == current_user %>
-    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
-    <% end %>
-      </div>
+    </div>
     </div>
 <%end%>
 <%if index == 1%>
-    <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
+     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-       <% rou.markers.each do |marker| %>
-     
-        <%= marker.lat %>
-        <%= marker.lon %>
-        <%= marker.description %>
-        <% if rou.user != current_user %>
-        </br>
-        <%end%>
+   
+        <table class="tablesorter" id="this1">
+        <thead>
+         <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Stop #</th>
+         <th>Latitude</th>
+         <th>Longitude</th>
+         
+         </tr>
+        </thead>
+        <tbody>
+          <% count=0 %>
+      <% rou.markers.each do |marker| %>
+          <% if marker.stop_no.nil? %>
+            <% @curr1 = marker.dup %>
+            <%else%>
+          <tr>
+            <td><%= count+1 %></td>
+          <td><%= marker.description %></td>
+          <td><%= marker.stop_no%></td>
+          <td> <%= marker.lat.round(r) %></td>
+          <td><%= marker.lon.round(r) %></td>
+          <% count=count+1 %>
+          
+          <% if rou.user != current_user %></td>
+          </br>
+          <%end%>
         <!-- <td><%= marker.rou %></td> -->
-        <% if rou.user == current_user %>
-       <%= link_to 'Show', [marker.rou, marker] %>
-        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
-        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
-      </br>
+          <% if rou.user == current_user %>
+        <!--   <td> <%= link_to 'Show', [marker.rou, marker] %></td> -->
+          <td>  <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %></td>
+          <td>  <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </br>
+          <% end %>
+      </tr>
+      <%end%>
       <% end %>
+   </tbody>
+</table>
+ 
+  At time: <b><%= @curr1.try(:description)%></b> </br>Latitude:<b><%= @curr1.try(:lat).round(r) if @curr1.try(:lat) %></b></br> Longitude:<b><%= @curr1.try(:lon).round(r) if @curr1.try(:lon) %></b></br>
+  <% if rou.user == current_user %>
+    <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
+  
     <% end %>
-    <% if rou.user == current_user %>
-    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
-    <% end %>
-      </div>
+    </div>
     </div>
 <%end%>
 <%if index == 2%>
-    <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
+     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-          <% rou.markers.each do |marker| %>
-     
-        <%= marker.lat %>
-        <%= marker.lon %>
-        <%= marker.description %>
-        <% if rou.user != current_user %>
-        </br>
-        <%end%>
+   
+        <table class="tablesorter" id="this2">
+        <thead>
+         <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Stop #</th>
+         <th>Latitude</th>
+         <th>Longitude</th>
+         
+         </tr>
+        </thead>
+        <tbody>
+          <% count=0 %>
+      <% rou.markers.each do |marker| %>
+          <% if marker.stop_no.nil? %>
+            <% @curr2 = marker.dup %>
+            <%else%>
+          <tr>
+            <td><%= count+1 %></td>
+          <td><%= marker.description %></td>
+          <td><%= marker.stop_no%></td>
+          <td> <%= marker.lat.round(r) %></td>
+          <td><%= marker.lon.round(r) %></td>
+          <% count=count+1 %>
+          
+          <% if rou.user != current_user %></td>
+          </br>
+          <%end%>
         <!-- <td><%= marker.rou %></td> -->
-        <% if rou.user == current_user %>
-       <%= link_to 'Show', [marker.rou, marker] %>
-        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
-        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
-      </br>
+          <% if rou.user == current_user %>
+        <!--   <td> <%= link_to 'Show', [marker.rou, marker] %></td> -->
+          <td>  <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %></td>
+          <td>  <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </br>
+          <% end %>
+      </tr>
+      <%end%>
       <% end %>
+   </tbody>
+</table>
+ 
+   At time: <b><%= @curr2.try(:description)%></b> </br>Latitude:<b><%= @curr2.try(:lat).round(r) if @curr2.try(:lat) %></b></br> Longitude:<b><%= @curr2.try(:lon).round(r) if @curr2.try(:lon) %></b></br>
+   <% if current_user.admin? %>
+    <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
+  
     <% end %>
-    <% if rou.user == current_user %>
-    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
-    <% end %>
-      </div>
+    </div>
     </div>
 <%end%>
 <%if index == 3%>
     <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-    <% rou.markers.each do |marker| %>
-     
-        <%= marker.lat %>
-        <%= marker.lon %>
-        <%= marker.description %>
-        <% if rou.user != current_user %>
-        </br>
-        <%end%>
+   
+        <table class="tablesorter" id="this3">
+        <thead>
+         <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Stop #</th>
+         <th>Latitude</th>
+         <th>Longitude</th>
+         
+         </tr>
+        </thead>
+        <tbody>
+          <% count=0 %>
+      <% rou.markers.each do |marker| %>
+          <% if marker.stop_no.nil? %>
+            <% @curr3 = marker.dup %>
+            <%else%>
+          <tr>
+            <td><%= count+1 %></td>
+          <td><%= marker.description %></td>
+          <td><%= marker.stop_no%></td>
+          <td> <%= marker.lat.round(r) %></td>
+          <td><%= marker.lon.round(r) %></td>
+          <% count=count+1 %>
+          
+          <% if rou.user != current_user %></td>
+          </br>
+          <%end%>
         <!-- <td><%= marker.rou %></td> -->
-        <% if rou.user == current_user %>
-       <%= link_to 'Show', [marker.rou, marker] %>
-        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
-        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
-      </br>
+          <% if rou.user == current_user %>
+        <!--   <td> <%= link_to 'Show', [marker.rou, marker] %></td> -->
+          <td>  <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %></td>
+          <td>  <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </br>
+          <% end %>
+      </tr>
+      <%end%>
       <% end %>
+   </tbody>
+</table>
+
+  At time: <b><%= @curr3.try(:description)%></b> </br>Latitude:<b><%= @curr3.try(:lat).round(r) if @curr3.try(:lat)%></b></br> Longitude:<b><%= @curr3.try(:lon).round(r) if @curr3.try(:lon)%></b></br>
+   <% if rou.user == current_user %>
+    <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
+  
     <% end %>
-    <% if rou.user == current_user %>
-    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
-    <% end %>
-      </div>
+    </div>
     </div>
 <%end%>
 <%if index == 4%>
-    <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
+ <div id="collapse<%= index.to_s %>" class="panel-collapse collapse in" role="tabpanel" >
       <div class="panel-body">
-    <% rou.markers.each do |marker| %>
-     
-        <%= marker.lat %>
-        <%= marker.lon %>
-        <%= marker.description %>
-        <% if rou.user != current_user %>
-        </br>
-        <%end%>
+   
+        <table class="tablesorter" id="this4">
+        <thead>
+         <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Stop #</th>
+         <th>Latitude</th>
+         <th>Longitude</th>
+         
+         </tr>
+        </thead>
+        <tbody>
+          <% count=0 %>
+      <% rou.markers.each do |marker| %>
+          <% if marker.stop_no.nil? %>
+            <% @curr4 = marker.dup %>
+            <%else%>
+          <tr>
+            <td><%= count+1 %></td>
+          <td><%= marker.description %></td>
+          <td><%= marker.stop_no%></td>
+          <td> <%= marker.lat.round(r) %></td>
+          <td><%= marker.lon.round(r) %></td>
+          <% count=count+1 %>
+          
+          <% if rou.user != current_user %></td>
+          </br>
+          <%end%>
         <!-- <td><%= marker.rou %></td> -->
-        <% if rou.user == current_user %>
-       <%= link_to 'Show', [marker.rou, marker] %>
-        <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %>
-        <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %>
-      </br>
+          <% if rou.user == current_user %>
+        <!--   <td> <%= link_to 'Show', [marker.rou, marker] %></td> -->
+          <td>  <%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %></td>
+          <td>  <%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </br>
+          <% end %>
+      </tr>
+      <%end%>
       <% end %>
+   </tbody>
+</table>
+ 
+   At time: <b><%= @curr4.try(:description)%></b> </br>Latitude:<b><%= @curr4.try(:lat).round(r) if @curr4.try(:lat)%></b></br> Longitude:<b><%= @curr4.try(:lon).round(r) if @curr4.try(:lon)%></b></br>
+   <% if rou.user == current_user %>
+    <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
+  
     <% end %>
-    <% if rou.user == current_user %>
-    <%= link_to 'New Marker', new_rou_marker_path(rou) %>
-    <% end %>
-      </div>
+    </div>
     </div>
 <%end%>
 </div>
 </div>
 <% end %>
+
+<script>
+$(document).ready(function() 
+    { 
+        $("#this0").tablesorter({
+    theme: 'bootstrap',
+  widgets: ['uitheme']
+}); 
+    } 
+); 
+
+$(document).ready(function() 
+    { 
+        $("#this1").tablesorter({
+    theme: 'bootstrap',
+  widgets: ['uitheme']
+}); 
+    } 
+); 
+$(document).ready(function() 
+    { 
+        $("#this2").tablesorter({
+    theme: 'bootstrap',
+  widgets: ['uitheme']
+}); 
+    } 
+); 
+$(document).ready(function() 
+    { 
+        $("#this3").tablesorter({
+    theme: 'bootstrap',
+  widgets: ['uitheme']
+}); 
+    } 
+); 
+$(document).ready(function() 
+    { 
+        $("#this4").tablesorter({
+    theme: 'bootstrap',
+  widgets: ['uitheme']
+}); 
+    } 
+); 
+</script>

@@ -1,0 +1,27 @@
+<div class= "jumbotron">
+<h1><center>Welcome to Fleet Manager</center></h1>
+
+<% if user_signed_in? %>
+
+			<div class="panel panel-default">
+			<div class="panel-heading"><h4>Routes Selected</h4></div>
+			<div class="panel-body">
+			<label class="checkbox-inline"><input type="checkbox" id="R1">Route 1</label>
+			
+			<label class="checkbox-inline"><input type="checkbox" id="R2">Route 2</label>
+		
+		  	</div>
+		</div>
+		<%= link_to "All Route Details", rous_path, class: "btn btn-primary" %>
+		<%= link_to "Get Map View", root_path, class: "btn btn-primary" %>
+<%else%>
+	<center>
+		<p>
+	
+			<%= link_to "Log in", new_user_session_path, class: "btn btn-success btn-lg"%>
+			<%= link_to "Sign up", new_user_registration_path, class: "btn btn-warning btn-lg"%>
+	
+		</p>
+	</center>
+<%end%>
+</div>
