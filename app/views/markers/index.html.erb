@@ -1,12 +1,12 @@
-<h1>Listing markers</h1>
+<h1>List View</h1>
 
-<table>
+<!-- <table>
   <thead>
     <tr>
       <th>Lat</th>
       <th>Long</th>
       <th>Description</th>
-     <!--  <th>Rou</th> -->
+      <th>Rou</th>
       <th>Stop number</th>
       <th></th>
       <th></th>
@@ -21,7 +21,7 @@
         <td><%= marker.lon %></td>
         <td><%= marker.description %></td>
         <td><%= marker.stop_no%></td>
-        <!-- <td><%= marker.rou %></td> -->
+       <td><%= marker.rou %></td>
         <td><%= link_to 'Show', [marker.rou, marker] %></td>
         <td><%= link_to 'Edit', edit_rou_marker_path(marker.rou, marker) %></td>
         <td><%= link_to 'Destroy', [marker.rou, marker], method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -29,8 +29,46 @@
       <%end%>
     <% end %>
   </tbody>
-</table>
+</table> -->
 
 <br>
-<%= link_to 'Back', rou_path(@rou) %> |
-<%= link_to 'New Marker', new_rou_marker_path %>
+
+  <table class="tablesorter" id="this0">
+        <thead>
+         <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th>Stop #</th>
+         
+         </tr>
+        </thead>
+        <tbody>
+          <% count=0 %>
+      <% @markers.each do |marker| %>
+          <% if marker.stop_no.nil? %>
+            <% @curr = marker.dup %>
+            <%else%>
+          <tr>
+            <td><%= count+1 %></td>
+          <td><%= marker.description %></td>
+          <td><%= marker.stop_no%></td>
+          <% count=count+1 %>
+          
+        <!-- <td><%= marker.rou %></td> -->
+       </tr>
+      <%end%>
+      <% end %>
+   </tbody>
+</table>
+
+
+<script>
+$(document).ready(function() 
+    { 
+        $("#this0").tablesorter({
+    theme: 'bootstrap',
+  widgets: ['uitheme']
+}); 
+    } 
+); 
+</script>

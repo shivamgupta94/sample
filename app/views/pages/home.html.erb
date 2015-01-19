@@ -92,10 +92,11 @@
     					});
     					marker.setIcon('http://i61.tinypic.com/mshumu.png')
 						curmar3 = marker;
-						marker.setVisible(false);
+						curmar3.setVisible(false);
 					}
 
 {	var parent = document.getElementById("here");
+	<%r = 5%>
 	<% @rou.each_with_index do |rou,index| %>
 	var checkbox = document.createElement('input');
 	checkbox.type = "checkbox";
@@ -110,7 +111,7 @@
 	<% rou.markers.each do |marker| %>
 	<% if marker.stop_no.nil? %>
 		<% @curr = marker.dup %>
-		addcur<%= index+1 %>(new google.maps.LatLng(<%= @curr.lat %>, <%= @curr.lon %>),map,'<%= @curr.description%>')
+		addcur<%= index+1 %>(new google.maps.LatLng(<%= @curr.lat.round(r) %>, <%= @curr.lon.round(r) %>),map,'<%= @curr.description%>')
 	<% else %>
 	addMarker<%= index+1 %>(new google.maps.LatLng(<%= marker.lat %>, <%= marker.lon %>),map,'<%= marker.description%>') 
 	<% end %>
@@ -347,7 +348,8 @@ $('#R3').change(function() {
   	</button>
   	<ul class="dropdown-menu" role="menu2">
    	<% @rou.each_with_index do |rou,index| %>
-    <li><a href="<%= rou_path(rou) %>" id="B<%index+1%>">Route <%=index+1%></a></li>
+   	<% abc = "rous/#{rou.id}/markers" %>
+    <li><a href="<%= abc %>" id="B<%index+1%>">Route <%=index+1%></a></li>
     <%end%>
     <li class="divider"></li>
     <li><a href= "rous" id="BB">All Routes</a></li>
