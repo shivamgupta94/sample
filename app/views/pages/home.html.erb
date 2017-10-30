@@ -14,9 +14,11 @@
 			    	var arrMarkers = [];
 			    	var arrMarkers2 = [];
 			   		var ar = [];
-			    	var curmar;var curmar2;var curmar3;
+			    	var curmar;
+			    	var curmar2;
+			    	var curmar3;
 			    	var map;
-			        var mapOptions = {center: { lat: 18.521034 , lng: 73.841470},zoom: 14};
+			        var mapOptions = {center: { lat: 18.521034 , lng: 73.841470},zoom: 13};
 			        
 			        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
@@ -75,7 +77,7 @@
 				      	marker = new google.maps.Marker
 				      	({
 				      		position: location1,
-				      		map: map1,
+				      		map:map1,
 				      		title:title1
     					});
     					marker.setIcon('http://i61.tinypic.com/mshumu.png')
@@ -87,7 +89,7 @@
 				      	marker = new google.maps.Marker
 				      	({
 				      		position: location15,
-				      		map: map15,
+				      		map:map15,
 				      		title:title15
     					});
     					marker.setIcon('http://i61.tinypic.com/mshumu.png')
@@ -96,26 +98,26 @@
 					}
 
 {	var parent = document.getElementById("here");
-	<%r = 5%>
+	<%r = 8%>
 	<% @rou.each_with_index do |rou,index| %>
-	var checkbox = document.createElement('input');
-	checkbox.type = "checkbox";
-	checkbox.name = "Route<%=index+1%>";
-	checkbox.value = "rou<%=index+1%>";
-	checkbox.id = "R<%=index+1%>";
-	var label = document.createElement('label')
-	label.htmlFor = "id";
-	label.appendChild(document.createTextNode('Route <%=index +1%>  '));
-	parent.appendChild(checkbox);
-	parent.appendChild(label);
-	<% rou.markers.each do |marker| %>
-	<% if marker.stop_no.nil? %>
-		<% @curr = marker.dup %>
-		addcur<%= index+1 %>(new google.maps.LatLng(<%= @curr.lat.round(r) %>, <%= @curr.lon.round(r) %>),map,'<%= @curr.description%>')
-	<% else %>
-	addMarker<%= index+1 %>(new google.maps.LatLng(<%= marker.lat %>, <%= marker.lon %>),map,'<%= marker.description%>') 
-	<% end %>
-	<% end %>
+		var checkbox = document.createElement('input');
+		checkbox.type = "checkbox";
+		checkbox.name = "Route<%=index+1%>";
+		checkbox.value = "rou<%=index+1%>";
+		checkbox.id = "R<%=index+1%>";
+		var label = document.createElement('label')
+		label.htmlFor = "id";
+		label.appendChild(document.createTextNode('Route <%=index +1%>'));
+		parent.appendChild(checkbox);
+		parent.appendChild(label);
+		<% rou.markers.each do |marker| %>
+			<% if marker.stop_no.nil? %>
+				<% @curr = marker.dup %>
+				addcur<%= index+1 %>(new google.maps.LatLng(<%= @curr.lat %>, <%= @curr.lon %>),map,'<%= @curr.description%>')
+			<% else %>
+				addMarker<%= index+1 %>(new google.maps.LatLng(<%= marker.lat %>, <%= marker.lon %>),map,'<%= marker.description%>') 
+			<% end %>
+		<% end %>
 	<%end%>
 		{
 		addMarker1(new google.maps.LatLng(18.521034, 73.841470),map,'Route 1 : Source')
@@ -351,9 +353,7 @@ $('#R3').change(function() {
    	<% abc = "rous/#{rou.id}/markers" %>
     <li><a href="<%= abc %>" id="B<%index+1%>">Route <%=index+1%></a></li>
     <%end%>
-    <li class="divider"></li>
-    <li><a href= "rous" id="BB">All Routes</a></li>
-  	</ul>
+   	</ul>
 	</div>
    
 		

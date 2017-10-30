@@ -71,7 +71,7 @@
       <% end %>
    </tbody>
 </table>
- 
+  Last known location :</br>
    At time: <b><%= @curr.try(:description)%></b> </br>Latitude:<b><%= @curr.try(:lat).round(r) if @curr.try(:lat) %></b></br> Longitude:<b><%= @curr.try(:lon).round(r) if @curr.try(:lon) %></b></br>
    <% if rou.user == current_user %>
     <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
@@ -124,7 +124,7 @@
       <% end %>
    </tbody>
 </table>
- 
+ Last known location :</br>
   At time: <b><%= @curr1.try(:description)%></b> </br>Latitude:<b><%= @curr1.try(:lat).round(r) if @curr1.try(:lat) %></b></br> Longitude:<b><%= @curr1.try(:lon).round(r) if @curr1.try(:lon) %></b></br>
   <% if rou.user == current_user %>
     <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
@@ -177,7 +177,7 @@
       <% end %>
    </tbody>
 </table>
- 
+ Last known location :</br>
    At time: <b><%= @curr2.try(:description)%></b> </br>Latitude:<b><%= @curr2.try(:lat).round(r) if @curr2.try(:lat) %></b></br> Longitude:<b><%= @curr2.try(:lon).round(r) if @curr2.try(:lon) %></b></br>
    <% if current_user.admin? %>
     <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
@@ -230,7 +230,7 @@
       <% end %>
    </tbody>
 </table>
-
+Last known location :</br>
   At time: <b><%= @curr3.try(:description)%></b> </br>Latitude:<b><%= @curr3.try(:lat).round(r) if @curr3.try(:lat)%></b></br> Longitude:<b><%= @curr3.try(:lon).round(r) if @curr3.try(:lon)%></b></br>
    <% if rou.user == current_user %>
     <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>
@@ -283,7 +283,7 @@
       <% end %>
    </tbody>
 </table>
- 
+ Last known location :</br>
    At time: <b><%= @curr4.try(:description)%></b> </br>Latitude:<b><%= @curr4.try(:lat).round(r) if @curr4.try(:lat)%></b></br> Longitude:<b><%= @curr4.try(:lon).round(r) if @curr4.try(:lon)%></b></br>
    <% if rou.user == current_user %>
     <%= link_to 'Add New Marker', new_rou_marker_path(rou), class: "btn btn-primary" %>

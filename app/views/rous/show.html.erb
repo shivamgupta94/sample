@@ -60,7 +60,7 @@
       <% end %>
    </tbody>
 </table>
- 
+  Last known location :</br>
    At time: <b><%= @curr.try(:description)%></b> </br>Latitude:<b><%= @curr.try(:lat).round(r) if @curr.try(:lat) %></b></br> Longitude:<b><%= @curr.try(:lon).round(r) if @curr.try(:lon) %></b></br>
    <% if @rou.user == current_user %>
     <%= link_to 'Add New Marker', new_rou_marker_path(@rou), class: "btn btn-primary" %>
